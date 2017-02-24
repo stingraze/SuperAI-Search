@@ -1,7 +1,7 @@
 <?php
     $username = "";
     $password = "";
-
+//Base script from https://owlcation.com/stem/Simple-search-PHP-MySQL
     mysql_connect("localhost", $username, $password) or die("Error connecting to database: ".mysql_error());
     /*
         localhost - it's location of the mysql server, usually localhost
