@@ -12,7 +12,7 @@
     */
      
     mysql_select_db("ows_index") or die(mysql_error());
-    /* tutorial_search is the name of database we've created */
+    /* ows_index is the name of database we've created */
 ?>
 <html>
 <head>
@@ -133,22 +133,14 @@ print '<title>SuperAI.online - Search results for: '.$query.'</title>';
 
         $raw_results2 = mysql_query("SELECT title, anchor_text, hostname, page FROM pages
             WHERE title != '' AND match (anchor_text) against ('$query' IN BOOLEAN MODE)  or match (title) against ('$query' WITH QUERY EXPANSION) order by anchor_text <> 'query2', anchor_text LIMIT 150") or die(mysql_error());
-        //match  (title) against ('$query') OR 
-             
-        // * means that it selects all fields, you can also write: `id`, `title`, `text`
-        // articles is the name of our table
-         
-        // '%$query%' is what we're looking for, % means anything, for example if $query is Hello
-        // it will match "hello", "Hello man", "gogohello", if you want exact match use `title`='$query'
-        // or if you want to match just full word so "gogohello" is out use '% $query %' ...OR ... '$query %' ... OR ... '% $query'
-         
+        
         if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following
              
             while($results = mysql_fetch_array($raw_results)){
             // $results = mysql_fetch_array($raw_results) puts data from database into array, while it's valid it does the loop
             
                 echo '<p><h3><a href="http://'.$results[2].$results[3].'">'.$results[0]."</h3></a>".$results[2].$results[3]."<br><br>".$results[1]."</p>".PHP_EOL;
-                // posts results gotten from database(title and text) you can also show id ($results['id'])
+
             }
              
         }
