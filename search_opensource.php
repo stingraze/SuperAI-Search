@@ -127,8 +127,7 @@ print '<title>SuperAI.online - Search results for: '.$query.'</title>';
         $query = "+".$query;
         $query = str_replace(' ', ' +', $query);
 
-        $raw_results = mysql_query("SELECT title, anchor_text, hostname, page FROM pages
-            WHERE title != '' AND match (anchor_text) against ('$query' IN BOOLEAN MODE)  or match (title) against ('$query' IN BOOLEAN MODE) order by anchor_text <> 'query2', anchor_text LIMIT 150") or die(mysql_error());
+        $raw_results = mysql_query("SELECT title, anchor_text, hostname, page, ((1.3 * (MATCH(title) AGAINST ('$query' IN BOOLEAN MODE))) + (0.6 * (MATCH(anchor_text) AGAINST ('$query' IN BOOLEAN MODE)))) AS relevance FROM pages WHERE (MATCH(title, anchor_text) AGAINST ('$query' IN BOOLEAN MODE) ) ORDER BY relevance DESC") or die(mysql_error());
 
         $raw_results2 = mysql_query("SELECT title, anchor_text, hostname, page FROM pages
             WHERE title != '' AND match (anchor_text) against ('$query' IN BOOLEAN MODE)  or match (title) against ('$query' WITH QUERY EXPANSION) order by anchor_text <> 'query2', anchor_text LIMIT 150") or die(mysql_error());
