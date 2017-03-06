@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from time import sleep
 import urllib2
 import urllib2 as req
 import re
@@ -23,6 +24,16 @@ for a in links:
 			new_soup = BeautifulSoup(new_resource, "html.parser")
 			links2 = new_soup.find_all("a")
 			print "New Resource"
+			sleep(1)
+			for b in links2: 
+				try:
+					href2 = b.attrs['href']
+					text2 = b.string
+					print href2.encode('utf-8')
+					sleep(1)
+				except:
+					continue
+
 		except urllib2.HTTPError as err:
 			if err.code == 404:
     				print "404 Error, Skipped"
