@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from time import sleep
 import urllib2
 import urllib2 as req
-import re
 #input from STDIN 
 input_url = raw_input()
 #open URL for BeautifulSoup to parse
