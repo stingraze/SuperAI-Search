@@ -1,14 +1,14 @@
 from bs4 import BeautifulSoup
 from time import sleep
 import urllib2
-import urllib2 as req
 #input from STDIN 
 input_url = raw_input()
+#UserAgent info
+req = urllib2.Request(input_url, headers={ 'User-Agent' : 'Mozilla/5.0' } )
+
 #open URL for BeautifulSoup to parse
-resource = req.urlopen(input_url)
+resource = urllib2.urlopen(req).read()
 
-
-#Needs work with Error 999 Exception.
 soup = BeautifulSoup(resource, "html.parser")
 
 links = soup.find_all("a")
@@ -17,9 +17,19 @@ for a in links:
 	href = a.attrs['href']
 	text = a.string
 	print href.encode('utf-8')
+	#skips twitter
+	if 'twitter.com' in href:
+		continue
+	#skips linkedin
+	if 'linkedin.com' in href:
+		continue
+
 	if "http" in href:
 		try:
-			new_resource = req.urlopen(href)
+			#UserAgent Info
+			req2 = urllib2.Request(href, headers={ 'User-Agent' : 'Mozilla/5.0' } )
+
+			new_resource = urllib2.urlopen(req2).read()
 			new_soup = BeautifulSoup(new_resource, "html.parser")
 			links2 = new_soup.find_all("a")
 			print "New Resource"
