@@ -1,4 +1,4 @@
-#BIts of Mohawk Search (C)Tsubasa Kato (@stingraze on Twitter) 2018
+#Bits of Mohawk Search (C)Tsubasa Kato (@stingraze on Twitter) 2018
 
 #DuckDuckGo API
 if ($cnt < 20){
